@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <title>List of Actions</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem; /* base font size */
+        background-color: #4caf50;
+        /* padding: 2rem; */
+      }
+
+      .header-logo {
+        border-radius: 1rem;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+        background-color: #f1f1f1;
+      }
+
+      .logo span {
+        color: black;
+      }
+
+      .incident h3 {
+        font-size: 1.5rem;
+        font-style: italic;
+        width: 26rem;
+      }
+      .incident h3 span {
+        font-weight: 400;
+      }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 80rem;
+        margin: 0 auto;
+        background-color: #fff;
+        /* padding:  0 rem; */
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 2rem 0 2rem;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+        color: #4caf50;
+      }
+      .header select {
+        font-size: 1rem;
+      }
+      .action-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding: 2rem;
+      }
+      .action-item {
+        background-color: #f9f9f9;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+      .action-item h2 {
+        font-size: 1.25rem;
+        color: #4caf50;
+        margin-bottom: 1rem;
+      }
+      .action-item p {
+        margin: 0.5rem 0;
+      }
+      .action-item .icons {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+      .action-item .icons img {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+
+      /* new-action */
+      #actions-container-wrapper {
+        padding: 0 2rem;
+      }
+
+      .actin-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #4caf50;
+      }
+
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .action-row label {
+        margin-right: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .action-row select,
+      .action-row input {
+        margin-right: 1rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .action-row-box1 {
+        display: flex;
+      }
+
+      .action-row-container {
+        display: flex;
+        flex-direction: column;
+        width: 15rem;
+        gap: 1rem;
+      }
+
+      .action-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      button {
+        margin-right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        color: white;
+        background-color: #333;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .poc {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .buttons {
+        display: flex;
+        padding: 0 6rem;
+        justify-content: flex-end;
+      }
+
+      /* date-time-picker */
+
+      .date-time-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      label {
+        font-size: 1rem;
+      }
+
+      .time-input {
+        font-size: 1rem;
+        width: 3rem;
+        text-align: center;
+      }
+
+      .fa-calendar-alt {
+        font-size: 1rem;
+        color: #333;
+        margin-left: -2rem;
+        margin-right: 1rem;
+      }
+
+      /* loader */
+      #gifContainer {
+        display: none;
+        text-align: center;
+        margin-top: 20px;
+        background: black;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #gifContainer img {
+        background: red;
+        width: 200px;
+        height: 200px;
+        z-index: 99;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .visible {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: center;
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      /* loader-modal */
+    </style>
+  </head>
+  <body>
+    <!-- List of Action -->
+    <div>
+      <div id="loadingModal" class="modal">
+        <div class="modal-content">
+          <!-- <p>Loading...</p> -->
+          <img
+            style=""
+            src="../Files/assets/bigrotation2.gif"
+            alt="Loading..."
+          />
+        </div>
+      </div>
+      <!-- <div id="gifContainerValue" class="hidden">
+      </div> -->
+      <div id="mainWrapperValue" class="wrapper">
+        <div></div>
+
+        <div class="container">
+          <div class="header-logo">
+            <div class="logo">
+              <h1>Command<span>Pro</span></h1>
+            </div>
+            <div class="incident">
+              <h3>
+                Incident Open Action Tracker
+                <span> ICS 233-CG </span>
+              </h3>
+            </div>
+          </div>
+          <div class="header">
+            <h1>
+              List of Actions
+              <span style="font-size: 1rem; color: #a2a2a2; font-weight: 400">
+                (Incident Location - 10)
+              </span>
+            </h1>
+            <div>
+              <select>
+                <option value="10">10</option>
+              </select>
+              <label> Records Per Page </label>
+            </div>
+          </div>
+
+          <div class="action-list" id="action-list">
+          </div>
+          <div>
+            <h6
+              style="
+                text-align: center;
+                font-weight: 400;
+                font-size: medium;
+                margin: 0;
+              "
+            >
+              showing 1 - 4 of 4 Records
+            </h6>
+          </div>
+
+          <div class="header">
+           <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <h6 style="font-size: 0.8rem; font-weight: 400; font-size: medium">page</h6>
+            <span style="border: 1px solid black; background: #4caf50; color: #fff; padding:0 0.2rem;">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+
+           </div>
+            <div>
+              <select>
+                <option value="10">10</option>
+              </select>
+              <label> Records Per Page </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Action  -->
+
+        <div class="container">
+          <div class="actin-btn">
+            <h1>New Actions</h1>
+            <div>
+              <button id="insert-line">Insert New Line</button>
+              <button>Reorder List</button>
+              <button id="toggle-visibility">Hide</button>
+            </div>
+          </div>
+          <div id="actions-container-wrapper">
+            <div id="actions-container" class="action-box">
+              <div class="action-row">
+                <div class="action-row-box1">
+                  <div class="action-row-container">
+                    <div style="display: flex; align-items: center">
+                      <label style="white-space: noWrap">Line No.:</label>
+                      <select style="width: 100%">
+                        <option>At Last</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Item:</label>
+                      <input type="checkbox" style="margin-left: 1.6rem" />
+                    </div>
+                    <div style="display: flex; align-items: center">
+                      <label>Status:</label>
+                      <select style="width: 100%" id="status-select">
+                        <option>--Select--</option>
+                        <option>Pending</option>
+                        <option>WIP</option>
+                        <option>Done</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Modal -->
+                  <div id="confirmation-modal" class="modal">
+                    <div class="modal-content">
+                      <p>Are you sure?</p>
+                      <div>
+                        <button id="yes-button">Yes</button>
+                        <button id="no-button">No</button>
+                      </div>
+                     
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; gap: 1rem">
+                    <div class="poc">
+                      <label>For/POC:</label>
+                      <input type="text" id="for-poc"/>
+                    </div>
+
+                    <div>
+                      <label>POC Briefed:</label>
+                      <input type="text" id="poc-briefed"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--  date-time-picker -->
+              <div>
+                <div class="date-time-picker">
+                  <div class="input-group">
+                    <label for="start-date">Start Date:</label>
+                    <input
+                      type="date"
+                      id="start-date"
+                      class="date-input"
+                      value="01/29/2010"
+                    />
+                  
+                    <input type="number" class="time-input" value="18" /> Hr
+                    <input type="number" class="time-input" value="38" /> Min
+                  </div>
+                  <div class="input-group">
+                    <label for="target-date">Target Date:</label>
+                    <input
+                      type="date"
+                      id="target-date"
+                      class="date-input"
+                      value="01/29/2010"
+                    />
+                   
+                    <input type="number" class="time-input" value="18" /> Hr
+                    <input type="number" class="time-input" value="38" /> Min
+                  </div>
+                  <div class="input-group">
+                    <label for="actual-date">Actual Date:</label>
+                    <input
+                      type="date"
+                      id="actual-date"
+                      class="date-input"
+                      value="01/29/2010"
+                    />
+                  
+                    <input type="number" class="time-input" value="18" /> Hr
+                    <input type="number" class="time-input" value="38" /> Min
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="saveButton">Save</button>
+          <button>Save & Exit</button>
+          <button>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>
